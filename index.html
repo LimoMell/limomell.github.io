@@ -9,8 +9,11 @@
 </head>
 <body>
     <div class="top">
-        <img src="Assets/logo_blackBG.png" alt="Logo" class="logo">
-        <h1 class="name">里莫 Limo</h1>
+        <div class="topLeft">
+            <img src="Assets/logo_blackBG.png" alt="Logo" class="logo" width="64" height="64">
+            <h1 class="name">里莫 Limo</h1>
+        </div>
+        <button class="themeToggle" type="button" id="themeToggle" aria-label="切換深色/淺色模式">淺色模式</button>
     </div>
     <div class="middle">
         <!-- 簡介 -->
@@ -104,5 +107,85 @@
     <div class="bottom">
         <p>更新日期：2026/2/5</p>
     </div>
+    <script>
+        (function () {
+            const storageKey = "theme-preference";
+            const html = document.documentElement;
+            const toggleBtn = document.getElementById("themeToggle");
+            const logo = document.querySelector(".top .logo");
+
+            const logoFor = {
+                light: "Assets/logo_blackBG.png",
+                dark: "Assets/logo_blackBG.png",
+            };
+
+            const media = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)");
+
+            function getStoredPreference() {
+                try {
+                    const v = localStorage.getItem(storageKey);
+                    return v === "light" || v === "dark" ? v : null;
+                } catch {
+                    return null;
+                }
+            }
+
+            function storePreference(value) {
+                try {
+                    if (value === "light" || value === "dark") {
+                        localStorage.setItem(storageKey, value);
+                    } else {
+                        localStorage.removeItem(storageKey);
+                    }
+                } catch {
+                    // ignore
+                }
+            }
+
+            function getEffectiveTheme(pref) {
+                if (pref === "light" || pref === "dark") return pref;
+                return media && media.matches ? "dark" : "light";
+            }
+
+            function render(pref) {
+                const effective = getEffectiveTheme(pref);
+                html.setAttribute("data-theme", effective);
+
+                if (toggleBtn) {
+                    toggleBtn.textContent = effective === "dark" ? "深色模式" : "淺色模式";
+                }
+
+                if (logo) {
+                    logo.src = logoFor[effective] || logoFor.light;
+                }
+            }
+
+            function nextPrefFromEffective(effective) {
+                return effective === "dark" ? "light" : "dark";
+            }
+
+            let pref = getStoredPreference();
+            render(pref);
+
+            if (toggleBtn) {
+                toggleBtn.addEventListener("click", function () {
+                    const effective = getEffectiveTheme(pref);
+                    pref = nextPrefFromEffective(effective);
+                    storePreference(pref);
+                    render(pref);
+                });
+            }
+
+            if (media && typeof media.addEventListener === "function") {
+                media.addEventListener("change", function () {
+                    if (pref == null) render(pref);
+                });
+            } else if (media && typeof media.addListener === "function") {
+                media.addListener(function () {
+                    if (pref == null) render(pref);
+                });
+            }
+        })();
+    </script>
 </body>
 </html>
