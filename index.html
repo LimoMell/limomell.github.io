@@ -10,7 +10,7 @@
 <body>
     <div class="top">
         <div class="topLeft">
-            <img src="assets/logo_blackBG.png" alt="Logo" class="logo" width="64" height="64">
+            <img src="assets/logo/lm_blackBG.png" alt="Logo" class="logo" width="64" height="64">
             <h1 class="name">里莫 Limo</h1>
         </div>
         <button class="themeToggle" type="button" id="themeToggle" aria-label="切換深色/淺色模式">淺色模式</button>
@@ -92,7 +92,7 @@
 
         <!-- 設定瑣事 -->
         <h2 class="charaTrivia">🐾 關於設定</h2>
-        <img src="assets/chara1Img.png" alt="里莫/Limo 的設定圖" width="240">
+        <img src="assets/chara/fursona1.png" alt="里莫/Limo 的設定圖" width="240">
         <h3 class="chara1Name">里莫/Limo (イラスト 瑞樹)</h3>
         <p class="chara1TriviaContent">
             –有些彩虹的元素：靈感是 WACCA 的ルーン，覺得他很帥<br>
@@ -115,8 +115,8 @@
             const logo = document.querySelector(".top .logo");
 
             const logoFor = {
-                light: "assets/logo_blackBG.png",
-                dark: "assets/logo_blackBG.png",
+                light: "assets/logo/lm_blackBG.png",
+                dark: "assets/logo/lm_blackBG.png",
             };
 
             const media = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)");
