@@ -89,7 +89,7 @@ function showKonamiEgg() {
     var el = document.createElement("div");
     el.className = "konami-egg";
     el.setAttribute("role", "status");
-    el.textContent = "哇！你在做什麼 (ㆁωㆁ)";
+    el.textContent = "哇！別再按啦 QwQ";
     document.body.appendChild(el);
     el.offsetHeight;
     el.classList.add("konami-egg-visible");
